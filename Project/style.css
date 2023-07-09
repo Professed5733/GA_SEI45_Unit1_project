@@ -12,6 +12,7 @@
   background-size: 50px 50px;
   position: relative;
   top: 150px;
+  left: 0; /* Add this line to set the initial left value */
 }
 
 .jump {

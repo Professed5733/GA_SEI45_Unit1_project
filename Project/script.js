@@ -1,3 +1,8 @@
+// https://www.youtube.com/watch?v=i7nIutSLvdU
+// https://www.youtube.com/watch?v=dQ6lYd6dyTI
+// https://www.includehelp.com/code-snippets/move-object-with-arrow-keys-using-javascript-function.aspx
+// https://www.youtube.com/watch?v=Pg1UqzZ5NQM
+
 const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
 
@@ -15,9 +20,10 @@ function walkLeft() {
   if (!dino.classList.contains("walk-left")) {
     dino.classList.remove("walk-right");
     dino.classList.add("walk-left");
-    // dino.style.left = parseInt(dino.style.left) - 50 + "px";
-    let x = parseInt(dino.style.left);
-    console.log(x);
+    const currentLeft = parseInt(
+      window.getComputedStyle(dino).getPropertyValue("left")
+    );
+    dino.style.left = currentLeft - 50 + "px";
   }
 }
 
@@ -25,17 +31,16 @@ function walkRight() {
   if (!dino.classList.contains("walk-right")) {
     dino.classList.remove("walk-left");
     dino.classList.add("walk-right");
-    // dino.style.left = parseInt(dino.style.left) + 50 + "px";
-    let x = window.getComputedStyle(dino, null).getPropertyValue(property);
-    console.log(x);
+    const currentLeft = parseInt(
+      window.getComputedStyle(dino).getPropertyValue("left")
+    );
+    dino.style.left = currentLeft + 50 + "px";
   }
 }
 
 function stopWalking() {
   dino.classList.remove("walk-left");
   dino.classList.remove("walk-right");
-  let x = dino.style.left;
-  console.log(x);
 }
 
 document.addEventListener("keydown", function (event) {
