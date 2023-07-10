@@ -12,11 +12,20 @@
   background-size: 50px 50px;
   position: relative;
   top: 150px;
-  left: 0; /* Add this line to set the initial left value */
+  left: 0px; /* Add this line to set the initial left value */
+}
+
+#score {
+  width: 100px;
+  height: 20px;
+  background-size: 100px 20px;
+  position: relative;
+  top: -80px;
+  left: 500px;
 }
 
 .jump {
-  animation: jump 0.3s linear;
+  animation: jump 0.5s linear;
 }
 
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode */
@@ -26,7 +35,7 @@
 }
 
 .walk-right {
-  animation: walk-right 0.3s linear infinite;
+  animation: walk-right 0.3s linear;
   animation-fill-mode: forwards;
 }
 
@@ -35,13 +44,13 @@
     top: 150px;
   }
   30% {
-    top: 130px;
+    top: 110px;
   }
   50% {
-    top: 80px;
+    top: 50px;
   }
   80% {
-    top: 130px;
+    top: 110px;
   }
   100% {
     top: 150px;
@@ -58,7 +67,7 @@
   background-image: url(img/cactus.png);
   background-size: 20px 40px;
 
-  /* animation: block 1s infinite linear; */
+  animation: block 1.5s infinite linear;
 }
 
 @keyframes block {
@@ -70,20 +79,20 @@
   }
 }
 
-@keyframes walk-left {
+/* @keyframes walk-left {
   0% {
     left: 0;
   }
   100% {
     left: -100px;
   }
-}
+} */
 
-@keyframes walk-right {
+/* @keyframes walk-right {
   0% {
     left: 0;
   }
   100% {
     left: 100px;
   }
-}
+}  */

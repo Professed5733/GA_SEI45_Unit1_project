@@ -2,6 +2,9 @@
 // https://www.youtube.com/watch?v=dQ6lYd6dyTI
 // https://www.includehelp.com/code-snippets/move-object-with-arrow-keys-using-javascript-function.aspx
 // https://www.youtube.com/watch?v=Pg1UqzZ5NQM
+// https://www.w3schools.com/jsref/jsref_getcomputedstyle.asp
+// https://www.includehelp.com/code-snippets/move-object-with-arrow-keys-using-javascript-function.aspx
+// https://bobbyhadz.com/blog/javascript-check-if-two-elements-overlap
 
 const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
@@ -12,63 +15,126 @@ function jump() {
 
     setTimeout(function () {
       dino.classList.remove("jump");
-    }, 300);
+    }, 500);
   }
 }
 
-function walkLeft() {
-  if (!dino.classList.contains("walk-left")) {
-    dino.classList.remove("walk-right");
-    dino.classList.add("walk-left");
-    const currentLeft = parseInt(
-      window.getComputedStyle(dino).getPropertyValue("left")
-    );
-    dino.style.left = currentLeft - 50 + "px";
-  }
-}
+//To be reviewed
+// let leftValue = 0;
 
-function walkRight() {
-  if (!dino.classList.contains("walk-right")) {
-    dino.classList.remove("walk-left");
-    dino.classList.add("walk-right");
-    const currentLeft = parseInt(
-      window.getComputedStyle(dino).getPropertyValue("left")
-    );
-    dino.style.left = currentLeft + 50 + "px";
-  }
-}
+// function walkLeft() {
+//   if (!dino.classList.contains("walk-left")) {
+//     dino.classList.remove("walk-right");
+//     dino.classList.add("walk-left");
+//     // const currentLeft = parseInt(
+//     //   window.getComputedStyle(dino).getPropertyValue("left")
+//     // );
+//     if (leftValue >= 0 && leftValue <= 250) {
+//       leftValue = leftValue - 50;
+//       dino.style.left = leftValue + "px";
+//     }
+//     // dino.style.left = parseInt(dino.style.left) + 5 + "px";
+//     // console.log(dino.style.left);
+//   }
+// }
 
-function stopWalking() {
-  dino.classList.remove("walk-left");
-  dino.classList.remove("walk-right");
-}
+// To be reviewed
+// function walkRight() {
+//   if (!dino.classList.contains("walk-right")) {
+//     dino.classList.remove("walk-left");
+//     dino.classList.add("walk-right");
+//     // const currentLeft = parseInt(
+//     //   window.getComputedStyle(dino).getPropertyValue("left")
+//     // );
+//     // dino.style.left = currentLeft + 50 + "px";
+//     if (leftValue >= 0 && leftValue <= 250) {
+//       leftValue = leftValue + 50;
+//       dino.style.left = leftValue + "px";
+//     }
+//     // dino.style.left = parseInt(dino.style.left) - 5 + "px";
+//   }
+// }
+
+//To be reviewed
+// function stopWalking() {
+//   dino.classList.remove("walk-left");
+//   dino.classList.remove("walk-right");
+// }
 
 document.addEventListener("keydown", function (event) {
   if (event.code === "Space") {
     jump();
   }
-  if (event.code === "ArrowLeft") {
-    walkLeft();
-  }
-  if (event.code === "ArrowRight") {
-    walkRight();
-  }
+  // if (event.code === "ArrowLeft") {
+  //   walkLeft();
+  // }
+  // if (event.code === "ArrowRight") {
+  //   walkRight();
+  // }
 });
 
-document.addEventListener("keyup", function (event) {
-  if (event.code === "ArrowLeft" || event.code === "ArrowRight") {
-    stopWalking();
-  }
-});
+// document.addEventListener("keyup", function (event) {
+//   if (event.code === "ArrowLeft" || event.code === "ArrowRight") {
+//     stopWalking();
+//   }
+// });
 
-let isAlive = setInterval(function () {
-  let dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue("top"));
-  let cactusLeft = parseInt(
-    window.getComputedStyle(cactus).getPropertyValue("left")
-  );
+// let isAlive = setInterval(function () {
+//   let dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue("top"));
+//   let cactusLeft = parseInt(
+//     window.getComputedStyle(cactus).getPropertyValue("left")
+//   );
 
-  if (cactusLeft < 50 && cactusLeft > 0 && dinoTop >= 140) {
-    console.log("collision");
-    //alert("Game Over!")
+//   if (cactusLeft < 50 && cactusLeft > 0 && dinoTop >= 140) {
+//     console.log("collision");
+//     //alert("Game Over!")
+//   }
+// }, 10);
+
+function checkOverlap() {
+  // Get the elements or their positions
+  const object1 = document.getElementById("dino");
+  const object2 = document.getElementById("cactus");
+  const rect1 = object1.getBoundingClientRect();
+  const rect2 = object2.getBoundingClientRect();
+
+  // Check for overlap
+  if (
+    rect1.left < rect2.right &&
+    rect1.right > rect2.left &&
+    rect1.top < rect2.bottom &&
+    rect1.bottom > rect2.top
+  ) {
+    console.log("Collision");
+    // Perform collision-related actions here
   }
-}, 10);
+
+  // Call the function again on the next frame
+  requestAnimationFrame(checkOverlap);
+}
+
+// Start the continuous overlap checking
+requestAnimationFrame(checkOverlap);
+
+//Score Function based on time
+//https://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock
+// https://linuxhint.com/javascript-count-up-timer/#:~:text=Approach%201%3A%20Implement%20a%20Count,the%20nearest%20down%20integer%20value.
+function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById("score").innerText = h + ":" + m + ":" + s;
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  } // add zero in front of numbers < 10
+  return i;
+}
+
+startTime();
