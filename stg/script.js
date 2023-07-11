@@ -1,3 +1,7 @@
+const dino = document.getElementById("dino");
+const cactus = document.getElementById("cactus");
+const score = document.getElementById("score");
+
 function createGame() {
   const newGame = document.createElement("div");
   newGame.className = "game";
@@ -23,6 +27,12 @@ function createDino() {
   newDino.style.left = "0px";
 
   newGame.appendChild(newDino);
+
+  newDino.addEventListener("keydown", function (event) {
+    if (event.code === "Space") {
+      jump(newDino);
+    }
+  });
 }
 
 function createCactus() {
@@ -84,3 +94,19 @@ function updateScore() {
 }
 
 updateScore();
+
+function jump(dino) {
+  if (!dino.classList.contains("jump")) {
+    dino.classList.add("jump");
+
+    setTimeout(function () {
+      dino.classList.remove("jump");
+    }, 500);
+  }
+}
+
+// document.addEventListener("keydown", function (event) {
+//   if (event.code === "Space") {
+//     jump();
+//   }
+// });
