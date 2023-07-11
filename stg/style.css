@@ -1,0 +1,30 @@
+.jump {
+  animation: jump 0.5s linear;
+}
+
+@keyframes jump {
+  0% {
+    top: 150px;
+  }
+  30% {
+    top: 110px;
+  }
+  50% {
+    top: 50px;
+  }
+  80% {
+    top: 110px;
+  }
+  100% {
+    top: 150px;
+  }
+}
+
+@keyframes block {
+  0% {
+    left: 580px;
+  }
+  100% {
+    left: -20px;
+  }
+}

@@ -3,6 +3,7 @@
   height: 200px;
   border: 1px solid black;
   margin: auto;
+  display: none;
 }
 
 #dino {
@@ -22,6 +23,7 @@
   position: relative;
   top: -80px;
   left: 500px;
+  display: none;
 }
 
 .jump {

@@ -5,9 +5,12 @@
 // https://www.w3schools.com/jsref/jsref_getcomputedstyle.asp
 // https://www.includehelp.com/code-snippets/move-object-with-arrow-keys-using-javascript-function.aspx
 // https://bobbyhadz.com/blog/javascript-check-if-two-elements-overlap
+// https://dev.bennage.com/blog/2013/01/11/game-dev-02/
 
 const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
+const score = document.getElementById("score");
+const scoreElement = document.getElementById("scoreValue");
 
 function jump() {
   if (dino.classList != "jump") {
@@ -73,6 +76,7 @@ document.addEventListener("keydown", function (event) {
   // }
 });
 
+// Old collision
 // document.addEventListener("keyup", function (event) {
 //   if (event.code === "ArrowLeft" || event.code === "ArrowRight") {
 //     stopWalking();
@@ -119,22 +123,22 @@ requestAnimationFrame(checkOverlap);
 //Score Function based on time
 //https://www.w3schools.com/js/tryit.asp?filename=tryjs_timing_clock
 // https://linuxhint.com/javascript-count-up-timer/#:~:text=Approach%201%3A%20Implement%20a%20Count,the%20nearest%20down%20integer%20value.
-function startTime() {
-  const today = new Date();
-  let h = today.getHours();
-  let m = today.getMinutes();
-  let s = today.getSeconds();
-  m = checkTime(m);
-  s = checkTime(s);
-  document.getElementById("score").innerText = h + ":" + m + ":" + s;
-  setTimeout(startTime, 1000);
+function updateScore() {
+  let score = 0;
+
+  setInterval(() => {
+    score += 10;
+    scoreElement.innerHTML = `Score: ${score.toString().padStart(6, "0")}`;
+  }, 1000);
 }
 
-function checkTime(i) {
-  if (i < 10) {
-    i = "0" + i;
-  } // add zero in front of numbers < 10
-  return i;
-}
+updateScore();
 
-startTime();
+function myFunction() {
+  const x = document.getElementById("game");
+  if ((x.style.display = "none")) {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
