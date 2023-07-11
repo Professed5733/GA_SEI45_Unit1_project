@@ -82,20 +82,14 @@ function updateScore() {
     scoreElement.innerHTML = `Score: ${score.toString().padStart(6, "0")}`;
   }, 1000);
 }
+
 const start = document.getElementsByClassName("start");
 
 function startGame() {
-  if (!start.classList.contains("start")) {
-    start.classList.add("start");
-    start.style.display = "none";
-  }
+  start.style.display = "none";
 }
 
-document.addEventListener("keydown", function (event) {
-  if (event.code === "Space") {
-    startGame();
-  }
-});
+document.addEventListener("keydown", startGame());
 
 // createGame();
 // createDino();
