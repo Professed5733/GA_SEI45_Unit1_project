@@ -9,6 +9,17 @@
   line-height: 750%;
 }
 
+#gameOver {
+  width: 600px;
+  height: 200px;
+  border: 1px solid black;
+  margin: auto;
+  display: none;
+  font-size: x-large;
+  text-align: center;
+  line-height: 750%;
+}
+
 .jump {
   animation: jump 0.5s linear;
 }

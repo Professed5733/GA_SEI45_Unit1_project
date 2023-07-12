@@ -194,6 +194,10 @@ function checkOverlap() {
     }, bufferDuration);
   }
 
+  if (life === 0) {
+    alert("Game Over");
+  }
+
   // Call the function again on the next frame
   requestAnimationFrame(checkOverlap);
 }
