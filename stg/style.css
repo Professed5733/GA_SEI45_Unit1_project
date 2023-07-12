@@ -1,9 +1,9 @@
-.start {
+#start {
   width: 600px;
   height: 200px;
   border: 1px solid black;
   margin: auto;
-  display: block;
+  display: none;
   font-size: x-large;
   text-align: center;
   line-height: 750%;

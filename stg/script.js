@@ -73,6 +73,31 @@ function createScoreValue() {
   document.getElementById("scoreValue").innerHTML = "000000";
 }
 
+function createLife() {
+  const newLife = document.createElement("div");
+  const newGame = document.getElementsByClassName("game")[0];
+
+  newLife.id = "life";
+  newLife.style.width = "100px";
+  newLife.style.height = "20px";
+  newLife.style.backgroundSize = "100px 20px";
+  // newLife.style.backgroundColor = "black";
+  newLife.style.position = "relative";
+  newLife.style.top = "-100px";
+  newLife.style.left = "250px";
+
+  newGame.appendChild(newLife);
+}
+
+function createLifeValue() {
+  const newLifeElement = document.createElement("span");
+  const newLifeId = document.getElementById("life");
+
+  newLifeElement.id = "lifeValue";
+  newLifeId.appendChild(newLifeElement);
+  document.getElementById("lifeValue").innerHTML = "Life: 3";
+}
+
 function updateScore() {
   const scoreElement = document.getElementById("scoreValue");
   let score = 0;
@@ -83,24 +108,36 @@ function updateScore() {
   }, 1000);
 }
 
-const start = document.getElementsByClassName("start");
-
-function startGame() {
-  start.style.display = "none";
+function createGameElements() {
+  createGame();
+  createDino();
+  createCactus();
+  createScore();
+  createScoreValue();
+  updateScore();
+  createLife();
+  createLifeValue();
 }
 
-document.addEventListener("keydown", startGame());
-
-// createGame();
-// createDino();
-// createCactus();
-// createScore();
-// createScoreValue();
-// updateScore();
+createGameElements();
 
 const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
 const score = document.getElementById("score");
+// // Get the start banner element
+// const startBanner = document.getElementById("start");
+
+// // Add event listener for keydown event on document
+// document.addEventListener("keydown", function (event) {
+//   // Check if the pressed key is the space key
+//   if (event.code === "Enter") {
+//     // Start the game
+//     createGameElements();
+
+//     // Hide or remove the start banner element
+//     startBanner.style.display = "none"; // or startBanner.remove();
+//   }
+// });
 
 function jump(dino) {
   if (!dino.classList.contains("jump")) {
@@ -118,6 +155,9 @@ document.addEventListener("keydown", function (event) {
   }
 });
 
+let life = 3;
+let isBufferActive = false;
+const bufferDuration = 3000; // 3 seconds
 function checkOverlap() {
   // Get the elements or their positions
   const object1 = document.getElementById("dino");
@@ -125,19 +165,47 @@ function checkOverlap() {
   const rect1 = object1.getBoundingClientRect();
   const rect2 = object2.getBoundingClientRect();
 
-  // Check for overlap
-  if (
-    rect1.left < rect2.right &&
-    rect1.right > rect2.left &&
-    rect1.top < rect2.bottom &&
-    rect1.bottom > rect2.top
-  ) {
-    console.log("Collision");
-    // Perform collision-related actions here
+  const lifeElement = document.getElementById("lifeValue");
+
+  // // Check for overlap
+  // if (
+  //   rect1.left < rect2.right &&
+  //   rect1.right > rect2.left &&
+  //   rect1.top < rect2.bottom &&
+  //   rect1.bottom > rect2.top
+  // ) {
+  //   life -= 1;
+  //   lifeElement.innerHTML = `Life: ${life}`;
+  //   // Perform collision-related actions here
+  // }
+
+  // // Call the function again on the next frame
+  // requestAnimationFrame(checkOverlap);
+
+  // Check for overlap only if the buffer is not active
+  if (!isBufferActive && isOverlap(rect1, rect2)) {
+    life -= 1;
+    lifeElement.innerHTML = `Life: ${life}`;
+
+    // Activate the buffer and start the timer
+    isBufferActive = true;
+    setTimeout(() => {
+      isBufferActive = false;
+    }, bufferDuration);
   }
 
   // Call the function again on the next frame
   requestAnimationFrame(checkOverlap);
+}
+
+// Helper function to check for overlap
+function isOverlap(rect1, rect2) {
+  return (
+    rect1.left < rect2.right &&
+    rect1.right > rect2.left &&
+    rect1.top < rect2.bottom &&
+    rect1.bottom > rect2.top
+  );
 }
 
 // Start the continuous overlap checking
