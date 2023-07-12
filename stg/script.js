@@ -1,12 +1,14 @@
 function createGame() {
-  const newGame = document.createElement("div");
-  newGame.className = "game";
+  // const gameOver = document.getElementById("gameOver");
+  const newGame = document.getElementsByClassName("game")[0];
+  // newGame.className = "game";
   newGame.style.width = "600px";
   newGame.style.height = "200px";
   newGame.style.border = "1px solid black";
   newGame.style.margin = "auto";
 
-  document.body.appendChild(newGame);
+  // document.body.appendChild(newGame);
+  // newGame.insertBefore(gameOver);
 }
 
 function createDino() {
@@ -119,25 +121,25 @@ function createGameElements() {
   createLifeValue();
 }
 
-createGameElements();
+// createGameElements();
 
 const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
 const score = document.getElementById("score");
-// // Get the start banner element
-// const startBanner = document.getElementById("start");
+// Get the start banner element
+const startBanner = document.getElementById("start");
 
-// // Add event listener for keydown event on document
-// document.addEventListener("keydown", function (event) {
-//   // Check if the pressed key is the space key
-//   if (event.code === "Enter") {
-//     // Start the game
-//     createGameElements();
+// Add event listener for keydown event on document
+document.addEventListener("keydown", function (event) {
+  // Check if the pressed key is the space key
+  if (event.code === "Enter") {
+    // Start the game
+    createGameElements();
 
-//     // Hide or remove the start banner element
-//     startBanner.style.display = "none"; // or startBanner.remove();
-//   }
-// });
+    // Hide or remove the start banner element
+    startBanner.style.display = "none"; // or startBanner.remove();
+  }
+});
 
 function jump(dino) {
   if (!dino.classList.contains("jump")) {
@@ -166,21 +168,6 @@ function checkOverlap() {
   const rect2 = object2.getBoundingClientRect();
 
   const lifeElement = document.getElementById("lifeValue");
-
-  // // Check for overlap
-  // if (
-  //   rect1.left < rect2.right &&
-  //   rect1.right > rect2.left &&
-  //   rect1.top < rect2.bottom &&
-  //   rect1.bottom > rect2.top
-  // ) {
-  //   life -= 1;
-  //   lifeElement.innerHTML = `Life: ${life}`;
-  //   // Perform collision-related actions here
-  // }
-
-  // // Call the function again on the next frame
-  // requestAnimationFrame(checkOverlap);
 
   // Check for overlap only if the buffer is not active
   if (!isBufferActive && isOverlap(rect1, rect2)) {

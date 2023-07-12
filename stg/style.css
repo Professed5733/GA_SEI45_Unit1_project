@@ -3,7 +3,7 @@
   height: 200px;
   border: 1px solid black;
   margin: auto;
-  display: none;
+  display: block;
   font-size: x-large;
   text-align: center;
   line-height: 750%;
