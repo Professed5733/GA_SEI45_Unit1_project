@@ -119,28 +119,6 @@ function createGameElements() {
   updateScore();
   createLife();
   createLifeValue();
-}
-
-// createGameElements();
-
-// Get the start banner element
-const startBanner = document.getElementById("start");
-let life = 3;
-let isBufferActive = false;
-const bufferDuration = 3000; // 3 seconds
-
-const gameOverBanner = document.getElementById("gameOver");
-
-// Add event listener for keydown event for Game Start
-document.addEventListener("keydown", function (event) {
-  // Check if the pressed key is the Enter key
-  if (event.code === "Enter") {
-    // Load Game Elements
-    createGameElements();
-
-    // Hide or remove the start banner element
-    startBanner.style.display = "none"; // or startBanner.remove();
-  }
 
   // Jump Function
   const dino = document.getElementById("dino");
@@ -207,12 +185,55 @@ document.addEventListener("keydown", function (event) {
 
   function endGame() {
     const gameContainer = document.getElementsByClassName("game")[0];
+    gameContainer.innerHTML = "";
     gameContainer.style.display = "none";
 
     const gameOverDiv = document.getElementById("gameOver");
     gameOverDiv.style.display = "block";
   }
+}
+
+// createGameElements();
+
+// Get the start banner element
+const startBanner = document.getElementById("start");
+let life = 3;
+let isBufferActive = false;
+const bufferDuration = 3000; // 3 seconds
+
+const gameOverBanner = document.getElementById("gameOver");
+
+// Add event listener for keydown event for Game Start
+document.addEventListener("keydown", function (event) {
+  // Check if the pressed key is the Enter key
+  if (event.code === "Enter") {
+    // Hide or remove the start banner element
+    startBanner.style.display = "none"; // or startBanner.remove();
+    if (gameOverBanner.style.display === "block") {
+      restartGame();
+    } else {
+      // Load Game Elements
+      createGameElements();
+    }
+  }
 });
+
+function restartGame() {
+  // Reset variables
+  life = 3;
+  isBufferActive = false;
+
+  // Reset game elements
+  const gameContainer = document.getElementsByClassName("game")[0];
+  gameContainer.style.display = "block";
+
+  // Hide game over banner
+
+  gameOverBanner.style.display = "none";
+
+  // Initialize game
+  createGameElements();
+}
 
 // const dino = document.getElementById("dino");
 // const cactus = document.getElementById("cactus");

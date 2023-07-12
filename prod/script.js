@@ -1,14 +1,9 @@
 function createGame() {
-  // const gameOver = document.getElementById("gameOver");
   const newGame = document.getElementsByClassName("game")[0];
-  // newGame.className = "game";
   newGame.style.width = "600px";
   newGame.style.height = "200px";
   newGame.style.border = "1px solid black";
   newGame.style.margin = "auto";
-
-  // document.body.appendChild(newGame);
-  // newGame.insertBefore(gameOver);
 }
 
 function createDino() {
@@ -63,7 +58,6 @@ function createScore() {
   newScore.style.left = "500px";
 
   newGame.appendChild(newScore);
-  //   document.getElementById("score").innerHTML = "Score:";
 }
 
 function createScoreValue() {
@@ -83,7 +77,6 @@ function createLife() {
   newLife.style.width = "100px";
   newLife.style.height = "20px";
   newLife.style.backgroundSize = "100px 20px";
-  // newLife.style.backgroundColor = "black";
   newLife.style.position = "relative";
   newLife.style.top = "-100px";
   newLife.style.left = "250px";
@@ -119,28 +112,6 @@ function createGameElements() {
   updateScore();
   createLife();
   createLifeValue();
-}
-
-// createGameElements();
-
-// Get the start banner element
-const startBanner = document.getElementById("start");
-let life = 3;
-let isBufferActive = false;
-const bufferDuration = 3000; // 3 seconds
-
-const gameOverBanner = document.getElementById("gameOver");
-
-// Add event listener for keydown event for Game Start
-document.addEventListener("keydown", function (event) {
-  // Check if the pressed key is the Enter key
-  if (event.code === "Enter") {
-    // Load Game Elements
-    createGameElements();
-
-    // Hide or remove the start banner element
-    startBanner.style.display = "none"; // or startBanner.remove();
-  }
 
   // Jump Function
   const dino = document.getElementById("dino");
@@ -195,88 +166,62 @@ document.addEventListener("keydown", function (event) {
         isBufferActive = false;
       }, bufferDuration);
     }
-
+    // Check end game
     if (life === 0) {
       endGame();
     } else {
       requestAnimationFrame(checkOverlap);
     }
-
-    // Call the function again on the next frame
   }
 
+  // End Game Function
   function endGame() {
     const gameContainer = document.getElementsByClassName("game")[0];
+    gameContainer.innerHTML = "";
     gameContainer.style.display = "none";
 
     const gameOverDiv = document.getElementById("gameOver");
     gameOverDiv.style.display = "block";
   }
+}
+
+// Restart Game Function
+function restartGame() {
+  // Reset variables
+  life = 3;
+  isBufferActive = false;
+
+  // Reset game elements
+  const gameContainer = document.getElementsByClassName("game")[0];
+  gameContainer.style.display = "block";
+
+  // Hide game over banner
+
+  gameOverBanner.style.display = "none";
+
+  // Initialize game
+  createGameElements();
+}
+
+// Get the start banner element
+const startBanner = document.getElementById("start");
+let life = 3;
+let isBufferActive = false;
+const bufferDuration = 3000; // 3 seconds
+
+const gameOverBanner = document.getElementById("gameOver");
+
+// Add event listener for keydown event for Game Start
+document.addEventListener("keydown", function (event) {
+  // Check if the pressed key is the Enter key
+  if (event.code === "Enter") {
+    // Hide or remove the start banner element
+    startBanner.style.display = "none"; // or startBanner.remove();
+    if (gameOverBanner.style.display === "block") {
+      restartGame();
+    } else {
+      // Load Game Elements
+      createGameElements();
+    }
+  }
 });
-
-// const dino = document.getElementById("dino");
-// const cactus = document.getElementById("cactus");
-// // const score = document.getElementById("score");
-// function jump(dino) {
-//   if (!dino.classList.contains("jump")) {
-//     dino.classList.add("jump");
-
-//     setTimeout(function () {
-//       dino.classList.remove("jump");
-//     }, 500);
-//   }
-// }
-
-// document.addEventListener("keydown", function (event) {
-//   if (event.code === "Space") {
-//     jump(dino);
-//   }
-// });
-
-// let life = 3;
-// let isBufferActive = false;
-// const bufferDuration = 3000; // 3 seconds
-
-// requestAnimationFrame(checkOverlap);
-
-// function isOverlap(rect1, rect2) {
-//   return (
-//     rect1.left < rect2.right &&
-//     rect1.right > rect2.left &&
-//     rect1.top < rect2.bottom &&
-//     rect1.bottom > rect2.top
-//   );
-// }
-
-// function checkOverlap() {
-//   // Get the elements or their positions
-//   const object1 = document.getElementById("dino");
-//   const object2 = document.getElementById("cactus");
-//   const rect1 = object1.getBoundingClientRect();
-//   const rect2 = object2.getBoundingClientRect();
-
-//   const lifeElement = document.getElementById("lifeValue");
-
-//   // Check for overlap only if the buffer is not active
-//   if (!isBufferActive && isOverlap(rect1, rect2)) {
-//     life -= 1;
-//     lifeElement.innerHTML = `Life: ${life}`;
-
-//     // Activate the buffer and start the timer
-//     isBufferActive = true;
-//     setTimeout(() => {
-//       isBufferActive = false;
-//     }, bufferDuration);
-//   }
-
-//   if (life === 0) {
-//     alert("Game Over");
-//   }
-
-//   // Call the function again on the next frame
-//   requestAnimationFrame(checkOverlap);
-// }
-
-// // // Helper function to check for overlap
-
-// // // Start the continuous overlap checking
