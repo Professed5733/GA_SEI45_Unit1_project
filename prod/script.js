@@ -25,6 +25,7 @@ function createDino() {
 function createCactus() {
   const newCactus = document.createElement("div");
   const newGame = document.getElementsByClassName("game")[0];
+  const scoreDiv = document.getElementById("score");
 
   newCactus.id = "cactus";
   newCactus.style.width = "20px";
@@ -34,9 +35,17 @@ function createCactus() {
   newCactus.style.left = "580px";
   newCactus.style.backgroundImage = "url(img/cactus.png)";
   newCactus.style.backgroundSize = "20px 40px";
-  newCactus.style.animation = "block 1.5s infinite linear";
 
-  newGame.appendChild(newCactus);
+  const animationDuration = Math.floor(Math.random() * 750) + 750;
+  newCactus.style.animation = `block ${animationDuration}ms linear`;
+
+  newGame.insertBefore(newCactus, scoreDiv);
+
+  newCactus.addEventListener("animationend", function () {
+    newCactus.remove();
+
+    createCactus();
+  });
 }
 
 function createScore() {
