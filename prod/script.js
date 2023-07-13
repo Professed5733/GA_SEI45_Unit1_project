@@ -20,12 +20,6 @@ function createDino() {
   newDino.style.left = "0px";
 
   newGame.appendChild(newDino);
-
-  newDino.addEventListener("keydown", function (event) {
-    if (event.code === "Space") {
-      jump(newDino);
-    }
-  });
 }
 
 function createCactus() {
@@ -176,6 +170,11 @@ function createGameElements() {
 
   // End Game Function
   function endGame() {
+    // Get your score
+    const yourScore = document.getElementById("yourScore");
+    const scoreElement = document.getElementById("scoreValue");
+    yourScore.innerHTML = scoreElement.innerHTML;
+
     const gameContainer = document.getElementsByClassName("game")[0];
     gameContainer.innerHTML = "";
     gameContainer.style.display = "none";
@@ -190,6 +189,8 @@ function restartGame() {
   // Reset variables
   life = 3;
   isBufferActive = false;
+  const yourScore = document.getElementById("yourScore");
+  yourScore.innerHTML = "";
 
   // Reset game elements
   const gameContainer = document.getElementsByClassName("game")[0];
